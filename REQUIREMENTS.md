@@ -22,8 +22,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Orders
 
-- Current Order by user (args: user id)[token required] - A SHOW route: 'orders/active?userid=value' [GET]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: 'orders/completed?userid=value'
+- Current Order by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/active' [GET]
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/active'
 
 ## Data Shapes
 

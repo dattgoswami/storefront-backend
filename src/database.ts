@@ -10,6 +10,7 @@ const {
   POSTGRES_PASSWORD,
   POSTGRES_TEST_DB,
   ENV,
+  POSTGRES_PORT,
 } = process.env;
 
 let Client: any;
@@ -21,6 +22,7 @@ if (ENV === "dev") {
     database: POSTGRES_DB,
     user: POSTGRES_USER,
     password: POSTGRES_PASSWORD,
+    port: Number(POSTGRES_PORT),
   });
 }
 
@@ -30,7 +32,8 @@ if (ENV === "test") {
     database: POSTGRES_TEST_DB,
     user: POSTGRES_USER,
     password: POSTGRES_PASSWORD,
+    port: Number(POSTGRES_PORT),
   });
 }
-
+// console.log(Client);
 export default Client;
