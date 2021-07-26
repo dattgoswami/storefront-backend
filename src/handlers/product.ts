@@ -39,14 +39,14 @@ const destroy = async (req: express.Request, res: express.Response) => {
   res.json(deleted);
 };
 
-const fiveMostExpensive = async (
+/* const fiveMostExpensive = async (
   _req: express.Request,
   res: express.Response
 ) => {
   const products: { name: string; price: number }[] =
     await store.fiveMostExpensive();
   res.json(products);
-};
+}; */
 
 const productsByCategory = async (
   req: express.Request,
@@ -61,10 +61,9 @@ const product_routes = (app: express.Application) => {
   app.post("/products", verifyAuthToken, create);
   app.get("/products", index);
   app.get("/products/:id", show);
-  // app.post('/products', verifyAuthToken, create);
-  app.put("/products/:id", update);
-  app.delete("/products", destroy);
-  app.get("/five-most-expensive", fiveMostExpensive);
+  app.put("/products/:id", update); //extra
+  app.delete("/products", destroy); //extra
+  // app.get("/five-most-expensive", fiveMostExpensive);
   app.get("/products/category/:categoryValue", productsByCategory);
 };
 

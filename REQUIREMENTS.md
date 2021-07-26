@@ -23,7 +23,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Orders
 
 - Current Order by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/active' [GET]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/complete'
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/complete' [GET]
 
 ## Data Shapes
 
@@ -51,3 +51,4 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
   Table: Orders (id:number, product_id:number[foreign key to product table], quantity:number, user_id:number[foreign key to user table], status:varchar)
+  //needs to be changed as we have two different tables

@@ -1,33 +1,15 @@
 import * as express from "express";
-import { Product, ProductStore } from "../models/product";
-// import verifyAuthToken from '../middleware/auth';
+import { Order, OrderCollection } from "../models/order";
 
 const store: OrderCollection = new OrderCollection();
 
-/*
-
-CREATE TABLE orders(
-    id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id),
-    status VARCHAR
-);
-
-CREATE TABLE order_products(
-    id SERIAL PRIMARY KEY,
-    quantity INT,
-    order_id INT REFERENCES orders(id),
-    product_id INT REFERENCES products(id)
-);
-*/
-
 const create = async (req: express.Request, res: express.Response) => {
   try {
-    const order: { name: string; price: number; category: string } = {
-      name: req.body.name,
-      price: req.body.price,
-      category: req.body.category,
+    const order: { user_id: string; status: string } = {
+      user_id: req.body.name,
+      status: req.body.status,
     };
-    const newProduct: Product = await store.create(product);
+    const newProduct: Order = await store.create(order);
     res.json(newProduct);
   } catch (err) {
     res.status(400);
@@ -36,52 +18,53 @@ const create = async (req: express.Request, res: express.Response) => {
 };
 
 const index = async (_req: express.Request, res: express.Response) => {
-  const products: Product[] = await store.index();
-  res.json(products);
+  try {
+    const orders: Order[] = await store.index();
+    res.json(orders);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 const show = async (req: express.Request, res: express.Response) => {
-  const product: Product = await store.show(req.params.id);
-  res.json(product);
+  try {
+    const order: Order = await store.show(req.params.id);
+    res.json(order);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
-const update = async (req: express.Request, res: express.Response) => {
-  const product: Product = await store.update(req.params.id, req.body.price);
-  res.json(product);
-};
+/* const update = async (req: express.Request, res: express.Response) => {
+  const order: Order = await store.update(req.params.id, req.body.status);
+  res.json(order);
+}; */
 
-const destroy = async (req: express.Request, res: express.Response) => {
+/* const destroy = async (req: express.Request, res: express.Response) => {
   const deleted = await store.delete(req.body.id);
   res.json(deleted);
+}; */
+
+const addProduct = async (req: express.Request, res: express.Response) => {
+  const orderId: string = req.params.id;
+  const productId: string = req.body.productId;
+  const quantity: number = parseInt(req.body.quantity);
+  try {
+    const addedProduct = await store.addProduct(quantity, orderId, productId);
+    res.json(addedProduct);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
-const fiveMostExpensive = async (
-  _req: express.Request,
-  res: express.Response
-) => {
-  const products: { name: string; price: number }[] =
-    await store.fiveMostExpensive();
-  res.json(products);
+const order_routes = (app: express.Application) => {
+  app.post("/orders", create); //extra
+  app.get("/orders", index); //extra
+  app.get("/orders/:id", show); //extra
+  app.post("/orders/:id/products", addProduct); //extra
 };
 
-const productsByCategory = async (
-  req: express.Request,
-  res: express.Response
-) => {
-  const products: { name: string; price: number }[] =
-    await store.productsByCategory(req.params.categoryValue);
-  res.json(products);
-};
-
-const product_routes = (app: express.Application) => {
-  app.post("/products", create);
-  app.get("/products", index);
-  app.get("/products/:id", show);
-  // app.post('/products', verifyAuthToken, create);
-  app.put("/products/:id", update);
-  app.delete("/products", destroy);
-  app.get("/five-most-expensive", fiveMostExpensive);
-  app.get("/products/category/:categoryValue", productsByCategory);
-};
-
-export default product_routes;
+export default order_routes;

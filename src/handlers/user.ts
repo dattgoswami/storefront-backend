@@ -7,13 +7,23 @@ import verifyAuthToken from "../middleware/auth";
 const store: UserCollection = new UserCollection();
 dotenv.config();
 
-const index = async (req: express.Request, res: express.Response) => {
-  const orders = await store.index();
-  res.json(orders);
+const index = async (_req: express.Request, res: express.Response) => {
+  try {
+    const orders = await store.index();
+    res.json(orders);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 const show = async (req: express.Request, res: express.Response) => {
-  const orders = await store.show(req.params.id);
-  res.json(orders);
+  try {
+    const orders = await store.show(req.params.id);
+    res.json(orders);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 const create = async (req: express.Request, res: express.Response) => {
   try {
@@ -60,9 +70,6 @@ const create = async (req: express.Request, res: express.Response) => {
 } */
 //add authentication
 const user_routes = (app: express.Application) => {
-  //   app.get("/users", index);
-  //   app.get("/users/:id", show);
-  //   app.post("/users", create);
   app.get("/users", verifyAuthToken, index);
   app.get("/users/:id", verifyAuthToken, show);
   app.post("/users", create);

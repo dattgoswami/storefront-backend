@@ -1,7 +1,7 @@
 {
   "dev": {
     "driver": "pg",
-    "host": "192.168.80.2",
+    "host": "127.0.0.1",
     "database": "storefront_db",
     "user": "shopping_user",
     "password": "password123",

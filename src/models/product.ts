@@ -76,11 +76,11 @@ export class ProductStore {
       conn.release();
       return product;
     } catch (err) {
-      throw new Error(`Could not delete book ${id}. Error: ${err}`);
+      throw new Error(`Could not delete product ${id}. Error: ${err}`);
     }
   }
 
-  async fiveMostExpensive(): Promise<{ name: string; price: number }[]> {
+  /*   async fiveMostExpensive(): Promise<{ name: string; price: number }[]> {
     try {
       //@ts-ignore
       const conn = await Client.connect();
@@ -92,7 +92,7 @@ export class ProductStore {
     } catch (err) {
       throw new Error(`unable get products by price: ${err}`);
     }
-  }
+  } */
 
   async productsByCategory(
     category: string
