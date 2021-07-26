@@ -1,4 +1,3 @@
-import { isParameterPropertyDeclaration } from "typescript";
 import Client from "../database";
 import bcrypt from "bcrypt";
 

@@ -18,12 +18,12 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - Index [token required] - An INDEX route: 'users' [GET]
 - Show [token required] - A SHOW route: 'users/:id' [GET]
-- Create N[token required] - A CREATE route: 'users' [POST]
+- Create N - A CREATE route: 'users' [POST]
 
 #### Orders
 
 - Current Order by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/active' [GET]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/active'
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/complete'
 
 ## Data Shapes
 

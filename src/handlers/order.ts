@@ -1,12 +1,28 @@
 import * as express from "express";
 import { Product, ProductStore } from "../models/product";
-import verifyAuthToken from "../middleware/auth";
+// import verifyAuthToken from '../middleware/auth';
 
-const store: ProductStore = new ProductStore();
+const store: OrderCollection = new OrderCollection();
+
+/*
+
+CREATE TABLE orders(
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    status VARCHAR
+);
+
+CREATE TABLE order_products(
+    id SERIAL PRIMARY KEY,
+    quantity INT,
+    order_id INT REFERENCES orders(id),
+    product_id INT REFERENCES products(id)
+);
+*/
 
 const create = async (req: express.Request, res: express.Response) => {
   try {
-    const product: { name: string; price: number; category: string } = {
+    const order: { name: string; price: number; category: string } = {
       name: req.body.name,
       price: req.body.price,
       category: req.body.category,
@@ -58,7 +74,7 @@ const productsByCategory = async (
 };
 
 const product_routes = (app: express.Application) => {
-  app.post("/products", verifyAuthToken, create);
+  app.post("/products", create);
   app.get("/products", index);
   app.get("/products/:id", show);
   // app.post('/products', verifyAuthToken, create);
