@@ -1,4 +1,4 @@
-import * as express from "express";
+import express, { Request, Response, Application } from "express";
 import { User, UserCollection } from "../models/user";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -7,7 +7,7 @@ import verifyAuthToken from "../middleware/auth";
 const store: UserCollection = new UserCollection();
 dotenv.config();
 
-const index = async (_req: express.Request, res: express.Response) => {
+const index = async (_req: Request, res: Response) => {
   try {
     const orders = await store.index();
     res.json(orders);
@@ -16,7 +16,7 @@ const index = async (_req: express.Request, res: express.Response) => {
     res.json(err);
   }
 };
-const show = async (req: express.Request, res: express.Response) => {
+const show = async (req: Request, res: express.Response) => {
   try {
     const orders = await store.show(req.params.id);
     res.json(orders);
@@ -25,7 +25,7 @@ const show = async (req: express.Request, res: express.Response) => {
     res.json(err);
   }
 };
-const create = async (req: express.Request, res: express.Response) => {
+const create = async (req: Request, res: Response) => {
   try {
     const user: {
       firstName: string;
@@ -45,7 +45,7 @@ const create = async (req: express.Request, res: express.Response) => {
     res.json(err);
   }
 };
-/* const authenticate = async (req: express.Request, res: express.Response) => {
+/* const authenticate = async (req: Request, res: Response) => {
   const userName: {
     firstName: string;
     lastName: string;
@@ -69,7 +69,7 @@ const create = async (req: express.Request, res: express.Response) => {
     res.json(deleted);
 } */
 //add authentication
-const user_routes = (app: express.Application) => {
+const user_routes = (app: Application) => {
   app.get("/users", verifyAuthToken, index);
   app.get("/users/:id", verifyAuthToken, show);
   app.post("/users", create);

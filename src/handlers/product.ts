@@ -1,10 +1,10 @@
-import * as express from "express";
+import { Request, Response, Application } from "express";
 import { Product, ProductStore } from "../models/product";
 import verifyAuthToken from "../middleware/auth";
 
 const store: ProductStore = new ProductStore();
 
-const create = async (req: express.Request, res: express.Response) => {
+const create = async (req: Request, res: Response) => {
   try {
     const product: { name: string; price: number; category: string } = {
       name: req.body.name,
@@ -19,51 +19,38 @@ const create = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const index = async (_req: express.Request, res: express.Response) => {
+const index = async (_req: Request, res: Response) => {
   const products: Product[] = await store.index();
   res.json(products);
 };
 
-const show = async (req: express.Request, res: express.Response) => {
+const show = async (req: Request, res: Response) => {
   const product: Product = await store.show(req.params.id);
   res.json(product);
 };
 
-const update = async (req: express.Request, res: express.Response) => {
+const update = async (req: Request, res: Response) => {
   const product: Product = await store.update(req.params.id, req.body.price);
   res.json(product);
 };
 
-const destroy = async (req: express.Request, res: express.Response) => {
+const destroy = async (req: Request, res: Response) => {
   const deleted = await store.delete(req.body.id);
   res.json(deleted);
 };
 
-/* const fiveMostExpensive = async (
-  _req: express.Request,
-  res: express.Response
-) => {
-  const products: { name: string; price: number }[] =
-    await store.fiveMostExpensive();
-  res.json(products);
-}; */
-
-const productsByCategory = async (
-  req: express.Request,
-  res: express.Response
-) => {
+const productsByCategory = async (req: Request, res: Response) => {
   const products: { name: string; price: number }[] =
     await store.productsByCategory(req.params.categoryValue);
   res.json(products);
 };
 
-const product_routes = (app: express.Application) => {
+const product_routes = (app: Application) => {
   app.post("/products", verifyAuthToken, create);
   app.get("/products", index);
   app.get("/products/:id", show);
   app.put("/products/:id", update); //extra
   app.delete("/products", destroy); //extra
-  // app.get("/five-most-expensive", fiveMostExpensive);
   app.get("/products/category/:categoryValue", productsByCategory);
 };
 

@@ -50,5 +50,5 @@ These are the notes from a meeting with the frontend developer that describe wha
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
-  Table: Orders (id:number, product_id:number[foreign key to product table], quantity:number, user_id:number[foreign key to user table], status:varchar)
-  //needs to be changed as we have two different tables
+  Table: Orders (id:number, user_id:number[foreign key to user table], status:varchar)
+  Table: Order_Products (id:number, quantity:number, order_id:number[foreign key to orders table], product_id:number[foreign key to products table])

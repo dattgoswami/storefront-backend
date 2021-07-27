@@ -1,17 +1,18 @@
 {
   "dev": {
     "driver": "pg",
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "database": "storefront_db",
     "user": "shopping_user",
     "password": "password123",
-    "port": "5432"
+    "port": "5555"
   },
   "test": {
     "driver": "pg",
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "database": "storefront_test",
     "user": "shopping_user",
-    "password": "password123"
+    "password": "password123",
+    "port": "5555"
   }
 }

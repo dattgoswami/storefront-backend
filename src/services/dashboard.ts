@@ -6,8 +6,7 @@ export class DashboardQueries {
     try {
       //@ts-ignore
       const conn = await Client.connect();
-      const sql =
-        "SELECT name, price FROM products ORDER BY price DESC LIMIT 5";
+      const sql = "SELECT * FROM products ORDER BY price DESC LIMIT 5";
       const result = await conn.query(sql);
       conn.release();
       return result.rows;
@@ -42,7 +41,7 @@ export class DashboardQueries {
       //@ts-ignore
       const conn = await Client.connect();
       const sql =
-        "SELECT name, price, order_id FROM products INNER JOIN order_products ON product.id = order_products.id";
+        "SELECT name, price, order_id FROM products INNER JOIN order_products ON product.id = order_products.product_id";
 
       const result = await conn.query(sql);
 
@@ -59,7 +58,7 @@ export class DashboardQueries {
       const conn = await Client.connect();
       //   const sql = "SELECT * FROM orders WHERE status='complete' AND user_id = $1";
       const sql =
-        "SELECT * from orders_products WHERE id IN (SELECT id FROM orders WHERE status='complete' AND user_id = $1)";
+        "SELECT order_id, user_id, product_id, quantity, status FROM order_products INNER JOIN orders ON orders.id = order_products.order_id WHERE status='complete' AND orders.user_id =($1) ";
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows;
@@ -73,12 +72,12 @@ export class DashboardQueries {
       //   const sql = "SELECT * FROM orders WHERE status='active' AND user_id = $1";
 
       const sql =
-        "SELECT * from orders_products WHERE id IN (SELECT * FROM orders WHERE status='active' AND user_id = $1)";
+        "SELECT order_id, user_id, product_id, quantity, status FROM order_products INNER JOIN orders ON orders.id = order_products.order_id WHERE status='active' AND orders.user_id =($1) ";
       const result = await conn.query(sql, [id]);
       conn.release();
       return result.rows;
     } catch (err) {
-      throw new Error(`Could not find completed orders ${id}. Error: ${err}`);
+      throw new Error(`Could not find active orders ${id}. Error: ${err}`);
     }
   }
 }

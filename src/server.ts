@@ -12,11 +12,8 @@ const address: string = "0.0.0.0:3000";
 app.use(cors());
 app.use(bodyParser.json());
 
-// Client.connect()
-//   .then(() => console.log("connected"))
-//   .catch((err) => console.error("connection error", err.stack));
+// Client.connect().then(() => console.log("connected"));
 
-// console.log(client.config);
 app.get("/", function (req: Request, res: Response) {
   res.send("Hello World!");
 });
@@ -29,3 +26,5 @@ dashboard_routes(app);
 app.listen(3000, function () {
   console.log(`starting app on: ${address}`);
 });
+
+export default app;

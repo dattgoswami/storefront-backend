@@ -17,8 +17,9 @@ const verifyAuthToken = (
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET as string);
 
     next();
-  } catch (error) {
+  } catch (err) {
     res.status(401);
+    throw new Error("invalid jwt");
   }
 };
 

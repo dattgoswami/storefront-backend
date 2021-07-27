@@ -18,7 +18,7 @@ export class OrderCollection {
       conn.release();
       return product;
     } catch (err) {
-      throw new Error(`Could not add new product ${o.user_id}. Error: ${err}`);
+      throw new Error(`Could not add new order ${o.user_id}. Error: ${err}`);
     }
   }
 

@@ -1,12 +1,12 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, Application } from "express";
 import { DashboardQueries } from "../services/dashboard";
 import verifyAuthToken from "../middleware/auth";
 
 const dashboard = new DashboardQueries();
 
 const fiveMostExpensive = async (_req: Request, res: Response) => {
-  const users = await dashboard.fiveMostExpensive();
-  res.json(users);
+  const products = await dashboard.fiveMostExpensive();
+  res.json(products);
 };
 
 const usersWithOrders = async (_req: Request, res: Response) => {
@@ -29,11 +29,11 @@ const activeOrders = async (req: Request, res: Response) => {
   res.json(orders);
 };
 
-const dashboard_routes = (app: express.Application) => {
+const dashboard_routes = (app: Application) => {
   app.get("/five-most-expensive", fiveMostExpensive);
   app.get("/users-with-orders", usersWithOrders); //extra
   app.get("/products-in-orders", productsInOrders); //extra
-  app.get("/user/:id/orders/complete", verifyAuthToken, completedOrders);
+  app.get("/users/:id/orders/complete", verifyAuthToken, completedOrders);
   app.get("/users/:id/orders/active", verifyAuthToken, activeOrders);
 };
 
