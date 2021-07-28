@@ -1,6 +1,6 @@
 import supertest from "supertest";
-import app from "../../server";
-import { DashboardQueries } from "../../services/dashboard";
+import app from "../../../src/server";
+import { DashboardQueries } from "../../../src/services/dashboard";
 
 const request = supertest(app);
 const token: string = process.env.TOKEN_TEST as string;

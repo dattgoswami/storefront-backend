@@ -1,5 +1,5 @@
-import { UserCollection } from "../user";
-import sleep from "../../utilities/sleep";
+import { UserCollection } from "../../../src/models/user";
+import sleep from "../../../src/utilities/sleep";
 
 const store = new UserCollection();
 

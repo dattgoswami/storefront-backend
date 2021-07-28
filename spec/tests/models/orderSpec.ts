@@ -1,5 +1,5 @@
-import { OrderCollection } from "../order";
-import sleep from "../../utilities/sleep";
+import { OrderCollection } from "../../../src/models/order";
+// import sleep from "../../../src/utilities/sleep";
 
 const store = new OrderCollection();
 

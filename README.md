@@ -63,15 +63,18 @@ Before submitting your project, spin it up and test each endpoint. If each one r
 1. Clone the project to your local machine and navigate to that directory (all the below mentioned steps need to be performed in your locally cloned project directory)
 2. Create a .env file with these variable inside it(change the ENV variable here to test when running tests):
    ENV=dev
-   POSTGRES_HOST=postgres
+   POSTGRES_HOST=0.0.0.0
    POSTGRES_DB=storefront_db
    POSTGRES_USER=shopping_user
    POSTGRES_PASSWORD=password123
-   POSTGRES_PORT=5432
+   POSTGRES_PORT=5555
    POSTGRES_TEST_DB=storefront_test
    BCRYPT_PASSWORD=some-scecret-password
    SALT_ROUNDS=10
    TOKEN_SECRET=some_secret_token
+
+   //NOTE: if you are running postgres locally on your machine then the .env will need the host value set to 127.0.0.1 and port to 5432
+
 3. Open a terminal window and run command (here, we are starting our container for postgres)
    ```
    docker-compose up
@@ -93,8 +96,12 @@ Before submitting your project, spin it up and test each endpoint. If each one r
    ```
    npm install
    npm install -g db-migrate
+   //before running this step make sure that your databases are created
    npm run migrate
+   //before running this command you should update your .env file variable ENV to test (e.g. ENV=test)
    npm run test
+   //after this step check which database is being populated with the test data
+   //change the ENV variable in your .env file back to dev (ENV=dev)
    npm run watch
    ```
 

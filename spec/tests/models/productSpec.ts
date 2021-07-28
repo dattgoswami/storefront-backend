@@ -1,5 +1,5 @@
-import { ProductStore } from "../product";
-import sleep from "../../utilities/sleep";
+import { ProductStore } from "../../../src/models/product";
+import sleep from "../../../src/utilities/sleep";
 
 const store = new ProductStore();
 
@@ -51,7 +51,7 @@ describe("Product Model", () => {
   });
   it("index method should return a list of products", async () => {
     const result = await store.index();
-    await sleep(1500);
+    await sleep(2000);
     expect(result).toEqual([
       {
         id: 1,

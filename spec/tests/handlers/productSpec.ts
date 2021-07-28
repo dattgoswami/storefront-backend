@@ -1,6 +1,6 @@
 import supertest from "supertest";
-import app from "../../server";
-import { ProductStore } from "../../models/product";
+import app from "../../../src/server";
+import { ProductStore } from "../../../src/models/product";
 
 const request = supertest(app);
 const token: string = process.env.TOKEN_TEST as string;
