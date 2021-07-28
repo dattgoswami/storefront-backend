@@ -72,12 +72,11 @@ Before submitting your project, spin it up and test each endpoint. If each one r
    BCRYPT_PASSWORD=some-scecret-password
    SALT_ROUNDS=10
    TOKEN_SECRET=some_secret_token
-3. Open a terminal window and run command (we are starting our containers for postgres and our server in the same network)
+3. Open a terminal window and run command (here, we are starting our container for postgres)
    ```
    docker-compose up
    ```
-   It will run command npm run watch (i.e. start the server)
-4. Open second terminal window and run the commands (here, we are setting up the database and the user privileges)
+4. Open second terminal window and run these commands (here, we are setting up the database and the user privileges)
    ```
    docker-compose exec postgres bash
    psql -U postgres
@@ -92,14 +91,12 @@ Before submitting your project, spin it up and test each endpoint. If each one r
    ```
 5. Open third terminal window and run the commands (here, we will be running db-migrate firstly and then running the application)
    ```
-   docker-compose exec server bash
+   npm install
+   npm install -g db-migrate
    npm run migrate
    npm run test
-   //npm run watch
+   npm run watch
    ```
-   -> when everything is dockerized the values of the host and post should be postgres and 5432 as they are on the same network and the value of container name will get the ip address that we usually get from docker inspect
-   where as when only postgres is dockerized you need the host value 0.0.0.0 and the port as 5555
-   when you are running postgres locally host is 127.0.0.1 and port is 5432
 
 ### Once the project is up and running we need to test it using postman
 
