@@ -1,18 +1,18 @@
 {
   "dev": {
     "driver": "pg",
-    "host": "0.0.0.0",
-    "database": "storefront_db",
-    "user": "shopping_user",
-    "password": "password123",
-    "port": "5555"
+    "host": {"ENV": "POSTGRES_HOST"},
+    "database": {"ENV": "POSTGRES_DB"},
+    "user": {"ENV": "POSTGRES_USER"},
+    "password": {"ENV": "POSTGRES_PASSWORD"},
+    "port": {"ENV": "POSTGRES_PORT"}
   },
   "test": {
     "driver": "pg",
-    "host": "0.0.0.0",
-    "database": "storefront_test",
-    "user": "shopping_user",
-    "password": "password123",
-    "port": "5555"
+    "host": {"ENV": "POSTGRES_HOST"},
+    "database": {"ENV": "POSTGRES_TEST_DB"},
+    "user": {"ENV": "POSTGRES_USER"},
+    "password": {"ENV": "POSTGRES_PASSWORD"},
+    "port": {"ENV": "POSTGRES_PORT"}
   }
 }

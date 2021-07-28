@@ -60,25 +60,26 @@ Before submitting your project, spin it up and test each endpoint. If each one r
 
 ### In this setup, postgres is running inside a docker container
 
-1. Clone the project to your local machine and navigate to that directory(all the below mentioned steps need to be performed in your locally cloned project directory)
-2. Create a .env file with these variable inside it:
+1. Clone the project to your local machine and navigate to that directory (all the below mentioned steps need to be performed in your locally cloned project directory)
+2. Create a .env file with these variable inside it(change the ENV variable here to test when running tests):
    ENV=dev
-   POSTGRES_HOST=0.0.0.0
+   POSTGRES_HOST=postgres
    POSTGRES_DB=storefront_db
    POSTGRES_USER=shopping_user
    POSTGRES_PASSWORD=password123
-   POSTGRES_PORT=5555
+   POSTGRES_PORT=5432
    POSTGRES_TEST_DB=storefront_test
-   BCRYPT_PASSWORD=some-scecret
+   BCRYPT_PASSWORD=some-scecret-password
    SALT_ROUNDS=10
    TOKEN_SECRET=some_secret_token
-3. Open a terminal window and run command (we are starting our postgres instance)
+3. Open a terminal window and run command (we are starting our containers for postgres and our server in the same network)
    ```
    docker-compose up
    ```
-4. Open second terminal window and run the commands (we are setting up the database and the user privileges)
+   It will run command npm run watch (i.e. start the server)
+4. Open second terminal window and run the commands (here, we are setting up the database and the user privileges)
    ```
-   docker-compose exec bash
+   docker-compose exec postgres bash
    psql -U postgres
    CREATE USER shopping_user WITH PASSWORD 'password123';
    CREATE DATABASE storefront_db;
@@ -89,26 +90,23 @@ Before submitting your project, spin it up and test each endpoint. If each one r
    \c storefront_db
    \dt
    ```
-5. If you are getting error on npm migrate run
+5. Open third terminal window and run the commands (here, we will be running db-migrate firstly and then running the application)
    ```
-   docker inspect postgre_container_name
-   ```
-   get the IPAddress from the Networks field and put it in the database.json file in the host field.
-6. Open third terminal window and run the commands (we are populating our database with the tables using db-migrate and then running our application)
-   ```
-   npm install -g db-migrate
-   npm migrate
-   npm install
+   docker-compose exec server bash
+   npm run migrate
    npm run test
-   npm run watch
+   //npm run watch
    ```
+   -> when everything is dockerized the values of the host and post should be postgres and 5432 as they are on the same network and the value of container name will get the ip address that we usually get from docker inspect
+   where as when only postgres is dockerized you need the host value 0.0.0.0 and the port as 5555
+   when you are running postgres locally host is 127.0.0.1 and port is 5432
 
 ### Once the project is up and running we need to test it using postman
 
 1. (CREATE USER)Send a POST request to url [http://0.0.0.0:3000/users/] with body containing raw json
    {
-   "firstName": "John",
-   "lastName": "Doe",
+   "firstname": "John",
+   "lastname": "Doe",
    "password": "somePassword"
    }
    you will receive a jwt in your response window copy it.

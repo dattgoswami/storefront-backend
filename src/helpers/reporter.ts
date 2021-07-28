@@ -3,6 +3,7 @@ import {
   SpecReporter,
   StacktraceOption,
 } from "jasmine-spec-reporter";
+import CustomReporter = jasmine.CustomReporter;
 import SuiteInfo = jasmine.SuiteInfo;
 
 class CustomProcessor extends DisplayProcessor {
@@ -13,6 +14,7 @@ class CustomProcessor extends DisplayProcessor {
 
 jasmine.getEnv().clearReporters();
 jasmine.getEnv().addReporter(
+  // @ts-ignore
   new SpecReporter({
     spec: {
       displayStacktrace: StacktraceOption.NONE,

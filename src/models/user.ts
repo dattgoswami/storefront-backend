@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 
 export type User = {
   id: number;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   password: string;
 };
 
@@ -34,8 +34,8 @@ export class UserCollection {
     }
   }
   async create(u: {
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     password: string;
   }): Promise<User> {
     const saltRounds: string = process.env.SALT_ROUNDS as string;
@@ -46,12 +46,12 @@ export class UserCollection {
       const sql =
         "INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *";
       const hash = bcrypt.hashSync(u.password + pepper, parseInt(saltRounds));
-      const result = await conn.query(sql, [u.firstName, u.lastName, hash]);
+      const result = await conn.query(sql, [u.firstname, u.lastname, hash]);
       const user = result.rows[0];
       conn.release();
       return user;
     } catch (err) {
-      throw new Error(`Could not add new user ${u.firstName}. Error: ${err}`);
+      throw new Error(`Could not add new user ${u.firstname}. Error: ${err}`);
     }
   }
 

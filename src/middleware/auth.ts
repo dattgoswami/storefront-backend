@@ -1,8 +1,6 @@
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 
-dotenv.config();
 const verifyAuthToken = (
   req: Request,
   res: Response,
@@ -19,7 +17,7 @@ const verifyAuthToken = (
     next();
   } catch (err) {
     res.status(401);
-    throw new Error("invalid jwt");
+    res.json(err);
   }
 };
 

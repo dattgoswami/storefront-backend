@@ -8,22 +8,22 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
-- An INDEX route: 'products' [GET]
-- A SHOW route: 'products/:id' [GET]
-- Create [token required] - A CREATE route: 'products' [POST]
-- [OPTIONAL] Top 5 most popular products - A SHOW route: 'five-most-expensive' [GET]
-- [OPTIONAL] Products by category (args: product category) - A SHOW route 'products/category/:category' [GET]
+- An INDEX route: '/products' [GET]
+- A SHOW route: '/products/:id' [GET]
+- Create [token required] - A CREATE route: '/products' [POST]
+- [OPTIONAL] Top 5 most popular products - A SHOW route: '/five-most-expensive' [GET]
+- [OPTIONAL] Products by category (args: product category) - A SHOW route '/products/category/:category' [GET]
 
 #### Users
 
-- Index [token required] - An INDEX route: 'users' [GET]
-- Show [token required] - A SHOW route: 'users/:id' [GET]
-- Create N - A CREATE route: 'users' [POST]
+- Index [token required] - An INDEX route: '/users' [GET]
+- Show [token required] - A SHOW route: '/users/:id' [GET]
+- Create N - A CREATE route: '/users' [POST]
 
 #### Orders
 
-- Current Order by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/active' [GET]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: 'user/:id/orders/complete' [GET]
+- Current Order by user (args: user id)[token required] - A SHOW route: '/user/:id/orders/active' [GET]
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] - A SHOW route: '/user/:id/orders/complete' [GET]
 
 ## Data Shapes
 
@@ -41,7 +41,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - firstName
 - lastName
 - password
-  Table: Users (id:number, firstName:varchar, lastName:varchar, password:varchar)
+  Table: Users (id:number, firstname:varchar, lastname:varchar, password:varchar)
 
 #### Orders
 

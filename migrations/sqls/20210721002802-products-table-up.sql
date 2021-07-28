@@ -2,7 +2,7 @@
 
 CREATE TABLE products(
     id SERIAL PRIMARY KEY,
-    name VARCHAR,
-    price INT,
+    name VARCHAR NOT NULL,
+    price INT NOT NULL,
     category VARCHAR
 );

@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import verifyAuthToken from "../middleware/auth";
 
 const store: UserCollection = new UserCollection();
-dotenv.config();
 
 const index = async (_req: Request, res: Response) => {
   try {
@@ -28,12 +27,12 @@ const show = async (req: Request, res: express.Response) => {
 const create = async (req: Request, res: Response) => {
   try {
     const user: {
-      firstName: string;
-      lastName: string;
+      firstname: string;
+      lastname: string;
       password: string;
     } = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       password: req.body.password,
     };
     const newUser = await store.create(user);
@@ -68,7 +67,7 @@ const create = async (req: Request, res: Response) => {
     const deleted = await store.delete(req.body.id);
     res.json(deleted);
 } */
-//add authentication
+
 const user_routes = (app: Application) => {
   app.get("/users", verifyAuthToken, index);
   app.get("/users/:id", verifyAuthToken, show);
