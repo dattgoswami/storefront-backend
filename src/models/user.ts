@@ -54,7 +54,19 @@ export class UserCollection {
       throw new Error(`Could not add new user ${u.firstname}. Error: ${err}`);
     }
   }
-
+  async delete(id: string): Promise<User> {
+    try {
+      const sql = "DELETE FROM users WHERE id=($1)";
+      // @ts-ignore
+      const conn = await Client.connect();
+      const result = await conn.query(sql, [id]);
+      const product = result.rows[0];
+      conn.release();
+      return product;
+    } catch (err) {
+      throw new Error(`Could not delete user ${id}. Error: ${err}`);
+    }
+  }
   /*   async authenticate(
     username: { firstName: string; lastName: string },
     password: string

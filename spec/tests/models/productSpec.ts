@@ -2,16 +2,7 @@ import { ProductStore } from "../../../src/models/product";
 import sleep from "../../../src/utilities/sleep";
 
 const store = new ProductStore();
-
-beforeAll(async () => {
-  const result = await store.create({
-    name: "pen",
-    price: 2,
-    category: "stationery",
-  });
-});
-
-describe("Product Model", () => {
+describe("Product Model check if the methods exist", () => {
   it("should have an index method", () => {
     expect(store.index).toBeDefined();
   });
@@ -22,9 +13,15 @@ describe("Product Model", () => {
   it("should have a create method", () => {
     expect(store.create).toBeDefined();
   });
-  /* it("should have a delete method", () => {
-    expect(store.delete).toBeDefined();
-  }); */
+});
+describe("Product Model crud operations", () => {
+  beforeAll(async () => {
+    const result = await store.create({
+      name: "pen",
+      price: 2,
+      category: "stationery",
+    });
+  });
 
   it("create method should add a product", async () => {
     const result = await store.create({
@@ -32,46 +29,15 @@ describe("Product Model", () => {
       price: 3,
       category: "stationery",
     });
-    await sleep(500);
-    expect(result).toEqual({
-      id: 2,
-      name: "book",
-      price: 3,
-      category: "stationery",
-    });
+    expect(result.name).toEqual("book");
+    store.delete("2");
   });
   it("show method should return the correct product", async () => {
     const result = await store.show("1");
-    expect(result).toEqual({
-      id: 1,
-      name: "pen",
-      price: 2,
-      category: "stationery",
-    });
+    expect(result.name).toEqual("pen");
   });
   it("index method should return a list of products", async () => {
     const result = await store.index();
-    await sleep(2000);
-    expect(result).toEqual([
-      {
-        id: 1,
-        name: "pen",
-        price: 2,
-        category: "stationery",
-      },
-      {
-        id: 2,
-        name: "book",
-        price: 3,
-        category: "stationery",
-      },
-    ]);
+    expect(result[0].price).toEqual(2);
   });
-
-  /*   it("delete method should remove the product", async () => {
-    store.delete("1");
-    const result = await store.index();
-
-    expect(result).toEqual([]);
-  }); */
 });
