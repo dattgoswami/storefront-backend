@@ -67,13 +67,14 @@ Before submitting your project, spin it up and test each endpoint. If each one r
    POSTGRES_DB=storefront_db
    POSTGRES_USER=shopping_user
    POSTGRES_PASSWORD=password123
-   POSTGRES_PORT=5555
+   POSTGRES_PORT=5432
    POSTGRES_TEST_DB=storefront_test
    BCRYPT_PASSWORD=some-scecret-password
    SALT_ROUNDS=10
    TOKEN_SECRET=some_secret_token
-
+   TOKEN_TEST=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJmaXJzdG5hbWUiOiJTYXJhYmhhaSIsImxhc3RuYW1lIjoiQmFjaGFuIiwicGFzc3dvcmQiOiIkMmIkMTAkTjNXaS42QVBZbEhPNDBpSjdFb0xFdVFILnI1cGRFQ3g3ZDMxQy90R1E4VGVmLlhWQUN3b3EifSwiaWF0IjoxNjI3MzcyMzI5fQ.wbnvudMrqDXoQHotI4LLzPdTQVZMmdojvGOmBCIpAW8
    //NOTE: if you are running postgres locally on your machine then the .env will need the host value set to 127.0.0.1 and port to 5432
+   //NOTE; if you have uncommented and want to run the db and server on one docker network change the value of host to postgres and port to 5432
 
 3. Open a terminal window and run command (here, we are starting our container for postgres)
    ```
