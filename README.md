@@ -85,9 +85,10 @@ Before submitting your project, spin it up and test each endpoint. If each one r
    docker-compose exec postgres bash
    psql -U postgres
    CREATE USER shopping_user WITH PASSWORD 'password123';
-   CREATE DATABASE storefront_db;
+   CREATE DATABASE storefront_prisma;
    CREATE DATABASE storefront_test;
    GRANT ALL PRIVILEGES ON DATABASE storefront_db TO shopping_user;
+   //  CREATE ROLE shopping_user_prisma WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD 'password123';
    GRANT ALL PRIVILEGES ON DATABASE storefront_test TO shopping_user;
    \l
    \c storefront_db
@@ -104,6 +105,15 @@ Before submitting your project, spin it up and test each endpoint. If each one r
    //after this step check which database is being populated with the test data
    //change the ENV variable in your .env file back to dev (ENV=dev)
    npm run watch
+   ```
+6. For prisma:
+
+   ```
+   npm install prisma --save-dev
+   npx prisma
+   npx prisma init
+   npx prisma introspect //will autopopulate the schema.prisma file with the existing tables in your db
+   npx prisma migrate dev --name init
    ```
 
 ### Once the project is up and running we need to test it using postman
