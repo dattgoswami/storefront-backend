@@ -1,8 +1,19 @@
 import { Request, Response, Application } from "express";
 import { Product, ProductStore } from "../models/product";
 import verifyAuthToken from "../middleware/auth";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const store: ProductStore = new ProductStore();
+// const index = async (_req: Request, res: Response) => {
+//   const products: Product[] = await store.index();
+//   res.json(products);
+// };
+const index = async (_req: Request, res: Response) => {
+  const products: any = await prisma.products.findMany();
+  res.json(products);
+};
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -18,14 +29,24 @@ const create = async (req: Request, res: Response) => {
     res.json(err);
   }
 };
-
-const index = async (_req: Request, res: Response) => {
-  const products: Product[] = await store.index();
-  res.json(products);
-};
+// const create = async (req: Request, res: Response) => {
+//   try {
+//     const product: { name: string; price: number; category: string } = {
+//       name: req.body.name,
+//       price: req.body.price,
+//       category: req.body.category,
+//     };
+//     const newProduct: Product = await prisma.products.create(product);
+//     res.json(newProduct);
+//   } catch (err) {
+//     res.status(400);
+//     res.json(err);
+//   }
+// };
 
 const show = async (req: Request, res: Response) => {
   const product: Product = await store.show(req.params.id);
+  // const product: Product = await prisma.products.findUnique(req.params.id);
   res.json(product);
 };
 
